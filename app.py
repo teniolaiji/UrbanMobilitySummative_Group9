@@ -38,7 +38,7 @@ def home():
     with sqlite3.connect("train_data.db") as conn:
         if query_second_part:
             query_second_part = " AND ".join(query_second_part)
-            query += f" WHERE {query_second_part};"
+            query += f" WHERE {query_second_part}"
         query += f" LIMIT {DEFAULT_LIMIT};"
         print(f"Final query: {query} with parameters {parameters}")
         trips = conn.execute(f"{query}", parameters).fetchall()
