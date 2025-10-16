@@ -4,10 +4,11 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home():
     print(request.args)
-    
+
     DEFAULT_LIMIT = 200
 
     query = "SELECT * FROM trips"
@@ -58,22 +59,11 @@ def group_trips_by_key(records):
     return grouped
 
 
-# Route to get trip by id
-@app.route('/trip/<trip_id>')
-def get_trip(trip_id):
-    with sqlite3.connect("train_data.db") as conn:
-        trip = conn.execute("""
-            SELECT * FROM trips WHERE trip_id = ?;
-        """, (trip_id,)).fetchone()
-    
-    # TODO: Someone to create the trip.html template    
-    return render_template("trip.html", trip=trip)
-
-
 @app.route('/analytics')
 def analytics():
     with sqlite3.connect("train_data.db") as conn:
-        day_of_weeks = conn.execute("SELECT day_of_week FROM trips;").fetchall()
+        day_of_weeks = conn.execute(
+            "SELECT day_of_week FROM trips;").fetchall()
         no_of_trips_per_day_of_week = group_trips_by_key(day_of_weeks)
         print(no_of_trips_per_day_of_week)
 
@@ -90,7 +80,7 @@ def analytics():
             GROUP BY pickup_hour
             ORDER BY pickup_hour;
         """).fetchall()
-        
+
         passenger_distribution = conn.execute("""
             SELECT passenger_count, COUNT(*) AS no_of_trips
             FROM trips
@@ -105,7 +95,6 @@ def analytics():
             ORDER BY pickup_hour ASC;
         """).fetchall()
 
-
     context = {
         'no_of_trips_per_day_of_week': no_of_trips_per_day_of_week,
         'no_of_passengers_per_day_of_week': no_of_passengers_per_day_of_week,
@@ -114,6 +103,7 @@ def analytics():
         'no_of_passengers_per_time_of_day': no_of_passengers_per_time_of_day,
     }
     return render_template("analytics.html", **context)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
