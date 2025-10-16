@@ -1,28 +1,70 @@
-# How to Set Up Our Project
-0. Download train.csv dataset from https://www.kaggle.com/competitions/nyc-taxi-trip-duration/data?select=train.zip and place train.csv in project directory
-1. Create a virtual environment using the command python -m venv .venv (for Windows) or python3 -m venv .venv (for Linux and Mac).
-2. Activate the virtual environment using the command .venv\Scripts\activate (for windows) or source .venv/bin/activate (for Linux and Mac)
-3. Install the dependencies using the command pip install -r requirements.txt
-4. Run python clean.py (python3 clean.py) to parse and clean the data and stores the cleaned data in the db
-5. Run python app.py to start the Flask server
-6. Go to 127.0.0.1:5000
+# Urban Mobility Summative Project – Group 9
+
+## How to Set Up the Project
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/teniolaiji/UrbanMobilitySummative_Group9.git
+cd UrbanMobilitySummative_Group9
+```
+### 2. Download the Dataset
+Download the train.csv file from https://www.kaggle.com/competitions/nyc-taxi-trip-duration/data?select=train.zip , extract train.csv and place in in project directory
+```
+UrbanMobilitySummative_Group9/
+├── train.csv
+├── app.py
+├── clean.py
+└── ...
+```
+### 3. Create a Virtual Environment
+Windows
+```
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+Mac/Linux
+```
+python3 -m venv .venv
+source .venv/bin/activate
+```
+### 4. Install Dependencies
+```
+pip install -r requirements.txt
+```
+### 5. Preprocess and clean the data
+```
+python clean.py
+# or
+python3 clean.py
+```
+### 6. Run the application
+```
+python app.py
+# or
+python3 app.py
+```
+
+### 7. Open http://127.0.0.1:5000/ in your browser
 
 # About the Project
 This project provides insights into urban mobility by analyzing the New York city taxi trip duration dataset.
 
 # Project Structure
 ```
-urban_mobility_project/
-├── app.py                 # Flask web application server
-├── clean.py              # Data cleaning and processing script
-├── train.csv             # NYC taxi trip dataset
-├── requirements.txt      # Python dependencies
-├── static/              # CSS styling files
-│   ├── analytics.css    # Styling for analytics page
-│   └── home.css         # Styling for home page
-└── templates/           # HTML template files
-    ├── analytics.html   # Analytics dashboard page
-    └── home.html        # Home page template
+UrbanMobilitySummative_Group9/
+├── app.py                     # Flask web server
+├── clean.py                    # Data cleaning script
+├── train.csv                   # NYC taxi trip dataset (download separately)
+├── requirements.txt            # Python dependencies
+├── static/                     # CSS files
+│   ├── analytics.css
+│   └── home.css
+├── templates/                  # HTML templates
+│   ├── analytics.html
+│   └── home.html
+├── dump.sql                    # SQL dump of the database
+└── README.md
+
 ```
 
 # Features
