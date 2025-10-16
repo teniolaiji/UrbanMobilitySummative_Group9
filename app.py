@@ -9,7 +9,7 @@ app = Flask(__name__)
 def home():
     print(request.args)
 
-    DEFAULT_LIMIT = 200
+    DEFAULT_LIMIT = 5000
 
     query = "SELECT * FROM trips"
     query_second_part = []
@@ -38,7 +38,9 @@ def home():
     with sqlite3.connect("train_data.db") as conn:
         if query_second_part:
             query_second_part = " AND ".join(query_second_part)
-            query += f" WHERE {query_second_part} LIMIT {DEFAULT_LIMIT};"
+            query += f" WHERE {query_second_part};"
+        query += f" LIMIT {DEFAULT_LIMIT};"
+        print(f"Final query: {query} with parameters {parameters}")
         trips = conn.execute(f"{query}", parameters).fetchall()
 
     return render_template("home.html", trips=trips)
