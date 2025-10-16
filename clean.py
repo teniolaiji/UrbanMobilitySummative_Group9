@@ -97,6 +97,7 @@ with open('train.csv', mode='r', newline='') as file, \
                             4: "Thursday", 5: "Friday", 6: "Saturday", 7: "Sunday"}
         day_of_week = days_of_the_week[pickup_datetime.isoweekday()]
 
+# Haversine formula to calculate distance from longitude and latitude
         R = 6371.0
 
         pickup_latitude = math.radians(pickup_latitude)
@@ -110,10 +111,10 @@ with open('train.csv', mode='r', newline='') as file, \
         a = math.sin(diff_latitude / 2)**2 + math.cos(pickup_latitude) * \
             math.cos(dropoff_latitude) * math.sin(diff_longitude / 2)**2
         central_angle = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-        distance_km = R * central_angle
+        distance_km = round((R * central_angle), 3)
 
-        trip_speed = distance_km / (trip_duration / 3600)
-
+        speed = distance_km / (trip_duration / 3600)
+        trip_speed = round(speed, 3)
         with sqlite3.connect("train_data.db") as conn:
 
             conn.execute("""

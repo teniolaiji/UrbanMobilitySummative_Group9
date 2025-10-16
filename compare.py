@@ -1,6 +1,7 @@
 import sqlite3
 import time
 
+
 def sqlite_compare():
     with sqlite3.connect("train_data.db") as conn:
         no_of_trips_per_day_of_week = conn.execute("""
@@ -9,7 +10,7 @@ def sqlite_compare():
             GROUP BY day_of_week;
         """).fetchall()
         return no_of_trips_per_day_of_week
-    
+
 
 def group_trips_by_key_compare(records):
     grouped = []
@@ -31,8 +32,8 @@ sqlite_compare()
 end_time1 = time.time()
 
 dureation_sqlite_compare = end_time1 - start_time1
-print(f"It took {dureation_sqlite_compare} seconds for sqlite_compare() to complete.")
-
+print(
+    f"It took {dureation_sqlite_compare} seconds for sqlite_compare() to complete.")
 
 
 start_time2 = time.time()
